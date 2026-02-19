@@ -1,0 +1,16 @@
+##### commande pour Build de l'image  #############
+
+docker build -t mon-app-devops:v1 .
+
+##### commande pour Lancement du conteneur  #############
+
+docker run -d -p 8080:3000 --name devops-container mon-app-devops:v1
+#### generete la cle public et prive ###
+
+ssh-keygen -t rsa -b 4096
+
+ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa_vps_ci
+
+###### pour copie la cle pub sur le server######
+
+ssh-copy-id -i ~/.ssh/id_rsa.pub root@VOTRE_IP_VPS
