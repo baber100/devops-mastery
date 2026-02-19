@@ -14,3 +14,16 @@ ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa_vps_ci
 ###### pour copie la cle pub sur le server######
 
 ssh-copy-id -i ~/.ssh/id_rsa.pub root@VOTRE_IP_VPS
+
+
+
+///Quand la feature est prête :
+git checkout develop
+git merge feature/docker-improvement
+git push
+
+///Quand develop est stable :
+
+git checkout main
+git merge develop
+git push
