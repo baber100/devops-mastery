@@ -32,10 +32,17 @@ jobs:
           username: root
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
+            mkdir -p ~/devops-mastery
             cd ~/devops-mastery
-            export DOCKER_IMAGE=${{ secrets.DOCKERHUB_USERNAME }}/devops-app:latest
-            docker-compose pull
-            docker-compose up -d --remove-orphans
+            
+            # Create a simple .env file so Compose knows which image to use
+            echo "DOCKER_IMAGE=${{ secrets.DOCKERHUB_USERNAME }}/devops-app:latest" > .env
+            # export DOCKER_IMAGE=${{ secrets.DOCKERHUB_USERNAME }}/devops-app:latest
+
+            # Pull the latest changes for your config files (if you use git on vps)
+            # Or just run the compose commands to pull the new image and restart the containers
+            docker compose pull
+            docker compose up -d --remove-orphans
           # script: |
           #   docker pull ${{ secrets.DOCKERHUB_USERNAME }}/devops-app:latest
           #   docker stop my-app || true
