@@ -1,0 +1,16 @@
+---
+- name: Configuration du VPS pour Docker
+  hosts: vps
+  become: yes
+  tasks:
+    - name: Mise à jour du système
+      apt: update_cache=yes upgrade=dist
+      
+    - name: Installation de Docker
+      shell: curl -sSL https://get.docker.com | sh
+
+    - name: Démarrage de Docker
+      service:
+        name: docker
+        state: started
+        enabled: yes
