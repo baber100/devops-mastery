@@ -1,3 +1,56 @@
+Pour mettre un CI/CD en place en Deploy to VPS via SSH
+
+1- On cree le projet et son dockerfile
+ 
+2- on cree un compte sur dockerHub
+on va recupere les acces tokens 
+settings>personal acces tokens
+
+3- sur github
+
+on par dans settings>general>secrets and variables>actions>new repository secrets
+
+pour enregistre les valeurs
+
+DOCKERHUB_USERNAME: Your Docker Hub login.
+DOCKERHUB_TOKEN: Your Docker Hub Access Token.
+VPS_IP: The IP address of your VPS.
+VPS_SSH_KEY: The content of your private SSH key (~/.ssh/id_rsa).
+
+
+Générer une clé propre pour le VPS
+
+ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519_vps_ci
+
+on obtient: 
+id_ed25519_vps_ci
+id_ed25519_vps_ci.pub
+
+
+verification 
+ls ~/.ssh
+
+
+Ajouter la clé publique au VPS
+ssh-copy-id -i ~/.ssh/id_ed25519_vps_ci.pub root@root@vpsid
+
+affiche
+cat ~/.ssh/id_ed25519_vps_ci.pub
+
+
+nano ~/.ssh/authorized_keys
+
+
+Tester localement
+ssh -i ~/.ssh/id_ed25519_vps_ci root@vpsid
+
+
+
+Mettre la clé PRIVÉE dans GitHub
+cat ~/.ssh/id_ed25519_vps_ci
+
+
+
 ##### commande pour Build de l'image  #############
 
 docker build -t mon-app-devops:v1 .

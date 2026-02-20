@@ -1,0 +1,10 @@
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: 'vps-metrics'
+    static_configs:
+      - targets: ['node-exporter:9100'] # Monitor CPU/RAM
+  - job_name: 'vps-logs'
+    static_configs:
+      - targets: ['fluentd:24231'] # Monitor logs

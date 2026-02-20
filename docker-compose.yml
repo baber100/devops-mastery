@@ -1,0 +1,25 @@
+services:
+  app:
+    image: ${DOCKER_IMAGE}
+    ports:
+      - "81:3000"
+    restart: always
+
+  prometheus:
+    image: prom/prometheus
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3001:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=devops_mastery # Change this!
+
+  node-exporter: # This extracts hardware metrics from your VPS
+    image: prom/node-exporter
+    ports:
+      - "9100:9100"
